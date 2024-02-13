@@ -1,0 +1,138 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--primary-color: #456;
+	--secondary-color: #579;
+	--light-color: #f0f0f0;
+	--danger-color: rgb(223, 58, 77);
+}
+
+html,
+body {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.2rem;
+	color: #222;
+	line-height: 1.5;
+}
+
+button {
+	--color: var(--primary-color);
+	font-family: inherit;
+	font-size: inherit;
+	background: none;
+	border: none;
+	cursor: pointer;
+	background-color: var(--color);
+	color: white;
+	padding: 0.4rem 0.6rem;
+	border-radius: 0.2rem;
+	white-space: nowrap;
+	outline-offset: 0.1em;
+
+	&.small {
+		font-size: 1rem;
+		padding: 0.2rem 0.4rem;
+	}
+	&.secondary {
+		--color: var(--secondary-color);
+	}
+	&.danger {
+		--color: transparent;
+		color: var(--danger-color);
+	}
+	&:focus-visible {
+		outline: 0.2em solid var(--primary-color);
+	}
+}
+
+input[type='text'],
+input[type='number'] {
+	appearance: textfield;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	border: 0.1em solid #555;
+	padding: 0.4rem;
+	background-color: #fff;
+	width: 100%;
+	&:focus-visible {
+		outline: 0.1em solid var(--primary-color);
+	}
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type='checkbox'] {
+	accent-color: var(--primary-color);
+	scale: 1.2;
+	transform-origin: bottom left;
+	outline-offset: 0.1em;
+	&:focus-visible {
+		outline: 0.2em solid var(--primary-color);
+	}
+}
+
+input[type='radio'] {
+	accent-color: var(--primary-color);
+	scale: 1.2;
+	&:focus-visible {
+		outline: 0.2em solid var(--primary-color);
+	}
+}
+
+a {
+	color: inherit;
+}
+
+h1 {
+	text-align: center;
+}
+
+h1,
+h2 {
+	padding-block: 1rem;
+}
+
+h1,
+h2,
+h3 {
+	line-height: 1.2;
+}
+
+.danger {
+	color: var(--danger-color);
+}
+
+.cards {
+	list-style-type: none;
+	display: flex;
+	flex-direction: column;
+	gap: 1.75rem;
+	padding-block: 1rem;
+
+	.card {
+		padding: 1rem;
+		border-radius: 0.5rem;
+		background-color: var(--light-color);
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+}
+
+.small-menu {
+	text-align: center;
+	margin-block: 1rem;
+}
