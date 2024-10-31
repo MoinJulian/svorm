@@ -16,6 +16,7 @@ export type Database = {
           id: number
           index: number
           question: string
+          required: boolean
           svorm_id: number
         }
         Insert: {
@@ -24,6 +25,7 @@ export type Database = {
           id?: number
           index: number
           question?: string
+          required: boolean
           svorm_id: number
         }
         Update: {
@@ -32,6 +34,7 @@ export type Database = {
           id?: number
           index?: number
           question?: string
+          required?: boolean
           svorm_id?: number
         }
         Relationships: [
@@ -44,12 +47,42 @@ export type Database = {
           },
         ]
       }
+      multiple_choices_answers: {
+        Row: {
+          choice: number
+          created_at: string
+          id: number
+          question_id: number
+        }
+        Insert: {
+          choice?: number
+          created_at?: string
+          id?: number
+          question_id: number
+        }
+        Update: {
+          choice?: number
+          created_at?: string
+          id?: number
+          question_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "multiple_choices_answers_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "multiple_choices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       simple_questions: {
         Row: {
           created_at: string
           id: number
           index: number
           question: string
+          required: boolean
           svorm_id: number
         }
         Insert: {
@@ -57,6 +90,7 @@ export type Database = {
           id?: number
           index: number
           question?: string
+          required: boolean
           svorm_id: number
         }
         Update: {
@@ -64,6 +98,7 @@ export type Database = {
           id?: number
           index?: number
           question?: string
+          required?: boolean
           svorm_id?: number
         }
         Relationships: [
@@ -72,6 +107,35 @@ export type Database = {
             columns: ["svorm_id"]
             isOneToOne: false
             referencedRelation: "svorms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      simple_questions_answers: {
+        Row: {
+          answer: string
+          created_at: string
+          id: number
+          question_id: number | null
+        }
+        Insert: {
+          answer: string
+          created_at?: string
+          id?: number
+          question_id?: number | null
+        }
+        Update: {
+          answer?: string
+          created_at?: string
+          id?: number
+          question_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "simple_questions_answers_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "simple_questions"
             referencedColumns: ["id"]
           },
         ]

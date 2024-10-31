@@ -29,6 +29,10 @@
 	}
 
 	async function createSvorm() {
+		const valid = svormIsValid();
+
+		if (!valid) return;
+
 		const svorm: App.svorm = {
 			title,
 			questions
@@ -54,6 +58,30 @@
 
 	function deleteQuestion(question: App.question) {
 		questions = questions.filter((q) => q !== question);
+	}
+
+	function svormIsValid(): boolean {
+		if (title.length === 0) {
+			window.alert('Title is required');
+			return false;
+		}
+
+		if (questions.length === 0) {
+			window.alert('At least one question is required');
+			return false;
+		}
+
+		if (questions.some((question) => question.question.length === 0)) {
+			window.alert('All questions must have a question');
+			return false;
+		}
+
+		if (questions.some((question) => 'choices' in question && question.choices.length <= 1)) {
+			window.alert('All multiple choice questions must have at least two choices');
+			return false;
+		}
+
+		return true;
 	}
 </script>
 

@@ -2,6 +2,7 @@
 	<ul>
 		<li><a href="/">Home</a></li>
 		<li><a href="/create">Create</a></li>
+		<li><a href="/answer">Answer</a></li>
 	</ul>
 </nav>
 

@@ -42,3 +42,39 @@ export async function saveQuestions(questions: App.question[], svorm_id: number)
 
 	return true;
 }
+
+export async function getQuestions(svorm_id: number): Promise<App.question_db[] | null> {
+	const { data: simple_questions, error: error1 } = await supabase
+		.from('simple_questions')
+		.select('*')
+		.eq('svorm_id', svorm_id);
+
+	if (error1) {
+		console.log({ error: error1 });
+		return null;
+	}
+
+	if (!simple_questions) {
+		return null;
+	}
+
+	const { data: multiple_choices, error: error2 } = await supabase
+		.from('multiple_choices')
+		.select('*')
+		.eq('svorm_id', svorm_id);
+
+	if (error2) {
+		console.log({ error: error2 });
+		return null;
+	}
+
+	if (!multiple_choices) {
+		return null;
+	}
+
+	const questions = simple_questions.concat(multiple_choices);
+
+	const sorted_questions = questions.sort((a, b) => a.index - b.index);
+
+	return sorted_questions;
+}
