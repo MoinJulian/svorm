@@ -2,11 +2,25 @@
 // for information about these interfaces
 declare global {
 	namespace App {
-		// interface Error {}
-		// interface Locals {}
-		// interface PageData {}
-		// interface PageState {}
-		// interface Platform {}
+		type simple_question = {
+			client_id: string;
+			question: string;
+			required: boolean;
+		};
+
+		type multiple_choice = {
+			client_id: string;
+			question: string;
+			required: boolean;
+			choices: string[];
+		};
+
+		type question = simple_question | multiple_choice;
+
+		type svorm = {
+			title: string;
+			questions: question[];
+		};
 	}
 }
 
