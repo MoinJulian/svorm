@@ -9,8 +9,6 @@
 		simple_questions_results: App.simple_question_result[];
 		multiple_choices_results: App.multiple_choice_result[];
 	};
-
-	console.log(data);
 </script>
 
 <h2>{data.svorm?.title} - {HEADINGS.RESULTS_SHORT}</h2>
