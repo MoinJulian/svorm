@@ -57,6 +57,25 @@ declare global {
 			simple_questions_answers: simple_question_answer[];
 			multiple_choices_answers: multiple_choice_answer[];
 		};
+
+		// result types
+
+		type simple_question_result = {
+			question_id: number;
+			result: string[];
+		};
+
+		type multiple_choice_result = {
+			question_id: number;
+			result: number[];
+		};
+
+		type svorm_result = {
+			svorm: svorm_db;
+			questions: question_db[];
+			simple_questions_results: simple_question_result[];
+			multiple_choices_results: multiple_choice_result[];
+		};
 	}
 }
 

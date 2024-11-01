@@ -1,8 +1,13 @@
+<script>
+	import { TEXT } from '$lib/config';
+</script>
+
 <nav>
 	<ul>
-		<li><a href="/">Home</a></li>
-		<li><a href="/create">Create</a></li>
-		<li><a href="/answer">Answer</a></li>
+		<li><a href="/">{TEXT.HOME}</a></li>
+		<li><a href="/create">{TEXT.CREATE_SVORM}</a></li>
+		<li><a href="/answer">{TEXT.ANSWER_SVORM}</a></li>
+		<li><a href="/results">{TEXT.RESULTS_SVORM}</a></li>
 	</ul>
 </nav>
 
