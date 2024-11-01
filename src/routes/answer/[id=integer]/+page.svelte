@@ -1,18 +1,27 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import Asterisk from '$lib/components/Asterisk.svelte';
+	import Error from '$lib/components/Error.svelte';
+	import Loader from '$lib/components/Loader.svelte';
+	import Required from '$lib/components/Required.svelte';
 	import type { PageData } from './$types';
 	import MultipleChoiceAnswer from './MultipleChoiceAnswer.svelte';
 	import SimpleAnswer from './SimpleAnswer.svelte';
 
 	export let data: PageData;
 
+	let loading = false;
+	let error_message = '';
 	let answers_object: Record<string, string> = {};
 	let choices_object: Record<string, number> = {};
 
 	async function submitAnswers() {
+		error_message = '';
 		const valid = answersAreValid();
 
 		if (!valid) return;
+
+		loading = true;
 
 		const simple_questions_answers: App.simple_question_answer[] = Object.entries(answers_object)
 			.map(([id_string, answer]) => ({
@@ -41,10 +50,12 @@
 			body: JSON.stringify(answers)
 		});
 
+		loading = false;
+
 		if (response.ok) {
 			goto(`/answered/${data.svorm.id}`);
 		} else {
-			window.alert('Submision was not successful');
+			error_message = 'Submision was not successful';
 		}
 	}
 
@@ -58,7 +69,7 @@
 		});
 
 		if (!valid) {
-			window.alert('Please fill in all required fields');
+			error_message = 'Please fill in all required fields';
 		}
 
 		return valid;
@@ -67,15 +78,15 @@
 
 <h2>{data.svorm.title}</h2>
 
+<Required noun="Questions" />
+
 <form on:submit|preventDefault={submitAnswers}>
 	<ul class="cards">
 		{#each data.questions as question}
 			<li class="card">
 				<h3>
 					{question.question}
-					{#if question.required}
-						<span class="danger">*</span>
-					{/if}
+					<Asterisk show={question.required} />
 				</h3>
 				{#if 'choices' in question}
 					<MultipleChoiceAnswer {question} bind:choices_object />
@@ -89,3 +100,6 @@
 		<button type="submit">Send answers</button>
 	</menu>
 </form>
+
+<Loader {loading} />
+<Error {error_message} />

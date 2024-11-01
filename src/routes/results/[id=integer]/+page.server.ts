@@ -1,4 +1,5 @@
 import { getResult } from '$lib/server/results';
+import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
@@ -7,7 +8,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	const svorm_result = await getResult(id);
 
 	if (!svorm_result) {
-		return new Response(JSON.stringify({ message: 'Failed to get result' }), { status: 500 });
+		throw error(404, 'There is no svorm result with that id');
 	}
 
 	return svorm_result;

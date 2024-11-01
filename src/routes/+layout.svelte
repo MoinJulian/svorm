@@ -9,7 +9,7 @@
 
 <Nav></Nav>
 
-<main>
+<main aria-live="polite">
 	<slot></slot>
 </main>
 

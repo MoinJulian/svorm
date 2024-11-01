@@ -1,29 +1,44 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import Asterisk from '$lib/components/Asterisk.svelte';
+	import { LABELS } from '$lib/config';
+	import { faTrash } from '@fortawesome/free-solid-svg-icons';
+	import { createEventDispatcher, onMount } from 'svelte';
+	import Fa from 'svelte-fa';
 	import Choices from './Choices.svelte';
 
 	export let question: App.question;
+	let question_input: HTMLInputElement;
 
 	const dispatch = createEventDispatcher();
 	let title: string = 'choices' in question ? 'Multiple choice' : 'Question';
+
+	onMount(() => {
+		question_input?.focus();
+	});
 </script>
 
 <div class="card">
 	<header>
 		<h3>{title}</h3>
-		<button class="small" on:click={() => dispatch('delete')}>x</button>
 	</header>
 	<label>
-		Question
-		<input type="text" bind:value={question.question} />
+		Question<Asterisk />
+		<input type="text" bind:value={question.question} bind:this={question_input} />
 	</label>
 	{#if 'choices' in question}
 		<Choices bind:choices={question.choices}></Choices>
 	{/if}
-	<label>
-		Required
-		<input type="checkbox" bind:checked={question.required} />
-	</label>
+	<div class="footer">
+		<label>
+			Required
+			<input type="checkbox" bind:checked={question.required} />
+		</label>
+		<button
+			class="small danger"
+			aria-label={LABELS.DELETE_QUESTION}
+			on:click={() => dispatch('delete')}><Fa icon={faTrash}></Fa></button
+		>
+	</div>
 </div>
 
 <style>
@@ -31,7 +46,7 @@
 		text-transform: uppercase;
 	}
 
-	header {
+	.footer {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;

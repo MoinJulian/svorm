@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { LABELS } from '$lib/config';
+	import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+	import Fa from 'svelte-fa';
+
 	export let choices: string[] = [];
 	let next_choice: string = '';
 
@@ -19,7 +23,11 @@
 		{#each choices as choice, index}
 			<li>
 				{choice}
-				<button class="small" on:click={() => deleteChoice(index)}>x</button>
+				<button
+					aria-label="Delete {choice}"
+					class="small danger"
+					on:click={() => deleteChoice(index)}><Fa icon={faTrash}></Fa></button
+				>
 			</li>
 		{/each}
 	</ol>
@@ -28,8 +36,8 @@
 {/if}
 
 <form on:submit|preventDefault={addChoice}>
-	<input type="text" bind:value={next_choice} />
-	<button>+</button>
+	<input type="text" bind:value={next_choice} aria-label={LABELS.CHOICE} required />
+	<button aria-label={LABELS.ADD_CHOICE} class="small"><Fa icon={faPlus}></Fa></button>
 </form>
 
 <style lang="scss">
