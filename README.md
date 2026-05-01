@@ -1,3 +1,5 @@
+> Project created while following this tutorial https://youtube.com/playlist?list=PL1LHMFscti8sJ1R9qn_0fuQMZaSYURQhf&si=DEnJqADbcFIaAShc
+
 # sv
 
 Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
